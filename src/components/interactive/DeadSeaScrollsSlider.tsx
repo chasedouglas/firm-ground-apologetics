@@ -75,7 +75,7 @@ export default function DeadSeaScrollsSlider() {
         {words.map((w, i) => (
           <span
             key={i}
-            className={otherWords[i] !== w ? 'bg-gold-200 dark:bg-gold-900/50 rounded px-0.5' : ''}
+            className={otherWords[i] !== w ? 'bg-amber-200 dark:bg-amber-900/50 rounded px-0.5' : ''}
           >
             {w}{' '}
           </span>
@@ -85,12 +85,12 @@ export default function DeadSeaScrollsSlider() {
   }
 
   return (
-    <div className="my-10 rounded-xl border border-parchment-200 dark:border-ink-700 bg-parchment-50 dark:bg-ink-950 p-6 shadow-sm font-sans">
+    <div className="my-10 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-950 p-6 shadow-sm font-sans">
       <div className="mb-5">
-        <h3 className="font-semibold text-ink-900 dark:text-parchment-100 text-base mb-1">
+        <h3 className="font-semibold text-surface-900 dark:text-surface-100 text-base mb-1">
           Dead Sea Scrolls / Masoretic Text: Isaiah 53
         </h3>
-        <p className="text-xs text-ink-500 dark:text-parchment-500">
+        <p className="text-xs text-surface-500 dark:text-surface-500">
           Comparing the Great Isaiah Scroll (1QIsa^a, c. 125 BC) with the Masoretic Text (c. 1000 AD) — ~1,125 years apart.
           Highlighted words indicate differences.
         </p>
@@ -104,8 +104,8 @@ export default function DeadSeaScrollsSlider() {
             onClick={() => setView(v)}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               view === v
-                ? 'bg-gold-500 dark:bg-gold-600 text-white'
-                : 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 hover:bg-parchment-300 dark:hover:bg-ink-700'
+                ? 'bg-amber-500 dark:bg-amber-600 text-white'
+                : 'bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-300 dark:hover:bg-surface-700'
             }`}
           >
             {v === 'compare' ? 'Side by Side' : v === 'dss' ? 'DSS Only (c. 125 BC)' : 'Masoretic Only (c. 1000 AD)'}
@@ -121,8 +121,8 @@ export default function DeadSeaScrollsSlider() {
             onClick={() => setActiveVerse(i)}
             className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
               activeVerse === i
-                ? 'bg-ink-800 dark:bg-parchment-200 text-white dark:text-ink-900'
-                : 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 hover:bg-parchment-300 dark:hover:bg-ink-700'
+                ? 'bg-surface-800 dark:bg-surface-200 text-white dark:text-surface-900'
+                : 'bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-300 dark:hover:bg-surface-700'
             }`}
           >
             v. {v.number}
@@ -140,7 +140,7 @@ export default function DeadSeaScrollsSlider() {
               </span>
               <span className="text-xs text-amber-600 dark:text-amber-500">c. 125 BC</span>
             </div>
-            <p className="text-sm text-ink-800 dark:text-parchment-200 leading-relaxed font-serif">
+            <p className="text-sm text-surface-800 dark:text-surface-200 leading-relaxed font-serif">
               {highlightDiff(verse.dss, verse.mt)}
             </p>
           </div>
@@ -151,51 +151,51 @@ export default function DeadSeaScrollsSlider() {
               </span>
               <span className="text-xs text-blue-600 dark:text-blue-500">c. 1000 AD</span>
             </div>
-            <p className="text-sm text-ink-800 dark:text-parchment-200 leading-relaxed font-serif">
+            <p className="text-sm text-surface-800 dark:text-surface-200 leading-relaxed font-serif">
               {highlightDiff(verse.mt, verse.dss)}
             </p>
           </div>
         </div>
       ) : (
-        <div className="rounded-lg bg-parchment-100 dark:bg-ink-900 border border-parchment-200 dark:border-ink-700 p-4 mb-5">
+        <div className="rounded-lg bg-surface-100 dark:bg-surface-900 border border-surface-200 dark:border-surface-700 p-4 mb-5">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-bold text-ink-700 dark:text-parchment-300 uppercase tracking-wide">
+            <span className="text-xs font-bold text-surface-700 dark:text-surface-300 uppercase tracking-wide">
               {view === 'dss' ? 'Great Isaiah Scroll (c. 125 BC)' : 'Masoretic Text (c. 1000 AD)'}
             </span>
           </div>
-          <p className="text-sm text-ink-800 dark:text-parchment-200 leading-relaxed font-serif">
+          <p className="text-sm text-surface-800 dark:text-surface-200 leading-relaxed font-serif">
             {view === 'dss' ? verse.dss : verse.mt}
           </p>
         </div>
       )}
 
       {/* English translation */}
-      <div className="rounded-lg bg-parchment-100 dark:bg-ink-900 border border-parchment-200 dark:border-ink-700 p-4 mb-4">
-        <p className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-2">
+      <div className="rounded-lg bg-surface-100 dark:bg-surface-900 border border-surface-200 dark:border-surface-700 p-4 mb-4">
+        <p className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-2">
           English Translation (ESV base)
         </p>
-        <p className="text-sm italic text-ink-700 dark:text-parchment-300 leading-relaxed font-serif">
+        <p className="text-sm italic text-surface-700 dark:text-surface-300 leading-relaxed font-serif">
           {verse.translation}
         </p>
       </div>
 
       {/* Textual notes */}
-      <div className={`rounded-lg border p-4 ${hasDiff ? 'bg-gold-50 dark:bg-gold-950/20 border-gold-200 dark:border-gold-900' : 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900'}`}>
-        <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${hasDiff ? 'text-gold-700 dark:text-gold-400' : 'text-green-700 dark:text-green-400'}`}>
+      <div className={`rounded-lg border p-4 ${hasDiff ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900' : 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900'}`}>
+        <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${hasDiff ? 'text-amber-700 dark:text-amber-400' : 'text-green-700 dark:text-green-400'}`}>
           {hasDiff ? 'Minor Variant Present' : 'Texts Agree Completely'}
         </p>
-        <p className="text-sm text-ink-700 dark:text-parchment-300 leading-relaxed">{verse.notes}</p>
+        <p className="text-sm text-surface-700 dark:text-surface-300 leading-relaxed">{verse.notes}</p>
       </div>
 
       {/* Timeline context */}
-      <div className="mt-5 flex items-center gap-3 text-xs text-ink-500 dark:text-parchment-500">
+      <div className="mt-5 flex items-center gap-3 text-xs text-surface-500 dark:text-surface-500">
         <span className="font-medium">125 BC</span>
-        <div className="flex-1 h-px bg-parchment-300 dark:bg-ink-700 relative">
+        <div className="flex-1 h-px bg-surface-300 dark:bg-surface-700 relative">
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-amber-500" />
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500" />
         </div>
         <span className="font-medium">1000 AD</span>
-        <span className="ml-2 font-semibold text-ink-400 dark:text-parchment-600">~1,125 year gap</span>
+        <span className="ml-2 font-semibold text-surface-400 dark:text-parchment-600">~1,125 year gap</span>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-4 text-xs">
@@ -203,13 +203,13 @@ export default function DeadSeaScrollsSlider() {
           href="https://www.deadseascrolls.org.il/explore-the-archive/scroll/X-1"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gold-700 dark:text-gold-400 underline"
+          className="text-amber-700 dark:text-amber-400 underline"
         >
           View Great Isaiah Scroll (Israel Museum) →
         </a>
       </div>
 
-      <p className="mt-4 text-xs text-ink-400 dark:text-parchment-600">
+      <p className="mt-4 text-xs text-surface-400 dark:text-parchment-600">
         {/* VERIFY */} Verse comparisons based on Abegg, Flint &amp; Ulrich, <em>The Dead Sea Scrolls Bible</em> (1999).
         Presented in English rendering; Hebrew variants are discussed by Tov, <em>Textual Criticism of the Hebrew Bible</em>, 3rd ed.
         The ~17-letter variant count for Isaiah 53 is widely cited but should be verified against the critical Hebrew apparatus.
