@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', (a) =>
+    a.slug.startsWith('bible-reliability/') && a.slug !== 'bible-reliability/index'
+  );
+  return articles.map((article) => ({
+    params: { slug: article.slug.replace('bible-reliability/', '') },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+---
+
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  lastUpdated={article.data.lastUpdated}
+  sources={article.data.sources}
+  tags={article.data.tags}
+  headings={headings}
+>
+  <Content />
+</ArticleLayout>

@@ -1,0 +1,125 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+interface Source {
+  id: string;
+  author: string;
+  title: string;
+  publisher?: string;
+  year?: number;
+  url?: string;
+  type: 'primary' | 'academic' | 'apologetic' | 'skeptical' | 'reference';
+}
+
+interface Props {
+  title: string;
+  description: string;
+  lastUpdated: Date;
+  sources: Source[];
+  tags: string[];
+  headings: Array<{ depth: number; slug: string; text: string }>;
+}
+
+const { title, description, lastUpdated, sources, tags, headings } = Astro.props;
+
+const sourceTypeLabel: Record<string, string> = {
+  primary: 'Primary Source',
+  academic: 'Academic',
+  apologetic: 'Apologetic',
+  skeptical: 'Skeptical / Critical',
+  reference: 'Reference',
+};
+const sourceTypeColor: Record<string, string> = {
+  primary: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+  academic: 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400',
+  apologetic: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
+  skeptical: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400',
+  reference: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+};
+
+const dateStr = lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="flex gap-8 px-6 md:px-10 py-10 max-w-screen-xl">
+    <!-- Main content -->
+    <article class="flex-1 min-w-0 max-w-3xl">
+      <!-- Article meta -->
+      <div class="mb-8 pb-8 border-b border-parchment-200 dark:border-ink-800">
+        <h1 class="font-serif text-3xl md:text-4xl font-bold text-ink-950 dark:text-parchment-50 leading-tight mb-4">
+          {title}
+        </h1>
+        <p class="text-lg text-ink-600 dark:text-parchment-400 font-serif leading-relaxed mb-4">
+          {description}
+        </p>
+        <div class="flex flex-wrap items-center gap-3 text-xs font-sans text-ink-400 dark:text-parchment-600">
+          <span>Updated {dateStr}</span>
+          {tags.length > 0 && (
+            <span class="flex flex-wrap gap-1.5">
+              {tags.map((t) => (
+                <span class="px-2 py-0.5 rounded-full bg-parchment-200 dark:bg-ink-800 text-ink-500 dark:text-parchment-500">
+                  {t}
+                </span>
+              ))}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <!-- Article body -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <slot />
+      </div>
+
+      <!-- Footnote list -->
+      <section class="mt-16 pt-8 border-t border-parchment-200 dark:border-ink-800" aria-label="Footnotes">
+        <h2 class="font-sans text-sm font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 mb-4">
+          Notes & Citations
+        </h2>
+        <ol id="footnote-list" class="space-y-2 list-none pl-0 font-sans">
+          <!-- Populated by Footnote.astro script -->
+        </ol>
+      </section>
+
+      <!-- Sources -->
+      {sources.length > 0 && (
+        <section class="mt-10 pt-8 border-t border-parchment-200 dark:border-ink-800" aria-label="Sources cited">
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 mb-4">
+            Sources Cited
+          </h2>
+          <ul class="space-y-3">
+            {sources.map((s) => (
+              <li class="flex items-start gap-3 font-sans text-sm">
+                <span class={`mt-0.5 shrink-0 text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded ${sourceTypeColor[s.type]}`}>
+                  {sourceTypeLabel[s.type]}
+                </span>
+                <span class="text-ink-700 dark:text-parchment-300 leading-relaxed">
+                  <span class="font-medium text-ink-800 dark:text-parchment-200">{s.author}</span>.{' '}
+                  <em>{s.title}</em>.{' '}
+                  {s.publisher && <span>{s.publisher}, </span>}
+                  {s.year && <span>{s.year}. </span>}
+                  {s.url && (
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-gold-700 dark:text-gold-400 underline text-xs"
+                    >
+                      Link →
+                    </a>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </article>
+
+    <!-- Right-rail TOC -->
+    <aside class="shrink-0 w-52 hidden xl:block">
+      <TableOfContents headings={headings} />
+    </aside>
+  </div>
+</BaseLayout>

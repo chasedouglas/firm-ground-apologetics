@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { render } from 'astro:content';
+
+// Try both slug forms (Astro may or may not normalize index)
+const allArticles = await getCollection('articles');
+const article = allArticles.find(
+  (a) => a.slug === 'bible-reliability/index' || a.slug === 'bible-reliability'
+);
+
+if (!article) {
+  // Debug: list available slugs
+  const slugs = allArticles.map(a => a.slug).join(', ');
+  throw new Error(`bible-reliability article not found. Available slugs: ${slugs}`);
+}
+
+const { Content, headings } = await render(article);
+---
+
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  lastUpdated={article.data.lastUpdated}
+  sources={article.data.sources}
+  tags={article.data.tags}
+  headings={headings}
+>
+  <Content />
+</ArticleLayout>

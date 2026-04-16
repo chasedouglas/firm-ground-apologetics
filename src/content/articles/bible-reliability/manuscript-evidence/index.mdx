@@ -1,0 +1,115 @@
+---
+title: "Manuscript Evidence"
+description: "The surviving manuscript tradition for the Bible — how many copies exist, how early they date, and what that means for textual confidence."
+section: "bible-reliability"
+subsection: "manuscript-evidence"
+order: 10
+lastUpdated: 2026-04-16
+tags: ["manuscripts", "papyri", "codex", "transmission"]
+sources:
+  - id: intf-manuscripts
+    author: "Institut für Neutestamentliche Textforschung (INTF), Universität Münster"
+    title: "New Testament Virtual Manuscript Room"
+    url: "https://ntvmr.uni-muenster.de/"
+    type: "primary"
+  - id: csntm
+    author: "Center for the Study of New Testament Manuscripts"
+    title: "Digital Manuscript Library"
+    url: "https://www.csntm.org/"
+    type: "primary"
+  - id: metzger-text
+    author: "Metzger, Bruce M. & Ehrman, Bart D."
+    title: "The Text of the New Testament: Its Transmission, Corruption, and Restoration"
+    publisher: "Oxford University Press"
+    year: 2005
+    type: "academic"
+  - id: holmes-apostolic
+    author: "Holmes, Michael W."
+    title: "The Apostolic Fathers: Greek Texts and English Translations"
+    publisher: "Baker Academic"
+    year: 2007
+    type: "academic"
+---
+
+import Footnote from '../../../../components/Footnote.astro';
+import ManuscriptChart from '../../../../components/interactive/ManuscriptChart.tsx';
+import GapVisualization from '../../../../components/interactive/GapVisualization.tsx';
+
+# Manuscript Evidence
+
+The case for the textual reliability of the New Testament begins with a simple empirical fact: no other ancient document is attested by anything close to the number of manuscripts we possess for the New Testament.
+
+This is not a claim that Christians invented. It is the standard finding reported by every major research institution in the field — from the Institut für Neutestamentliche Textforschung (INTF) at the University of Münster, which maintains the definitive manuscript registry, to the British Library's manuscript digitization projects, to the Vatican Apostolic Library.
+
+## The Numbers
+
+The official registry of Greek New Testament manuscripts, maintained by the INTF in Münster, currently lists over 5,800 Greek manuscripts. <Footnote id="intf-manuscripts" source="Institut für Neutestamentliche Textforschung, *Kurzgefasste Liste der griechischen Handschriften des Neuen Testaments*. Available at ntvmr.uni-muenster.de." /> When manuscripts in other languages — Latin, Syriac, Coptic, Armenian, Ethiopic, and others — are included, the total exceeds 24,000 by conservative estimates. <Footnote id="metzger-text" source="Metzger & Ehrman, *The Text of the New Testament*, 4th ed., p. 126." />
+
+{/* VERIFY: Cross-check the 24,000 figure. Metzger (2005) uses ~24,000 for all languages. Some more recent apologists cite 24,000–25,000. Wallace (CSNTM) has used 24,000+. The Greek-only count from INTF fluctuates as new manuscripts are identified and catalogued; ~5,800 is the figure as of 2023. */}
+
+For context:
+
+| Work | Manuscripts | Earliest Copy | Gap |
+|------|-------------|---------------|-----|
+| New Testament (Greek) | ~5,800 | ~125 AD (P52) | ~30–50 years |
+| New Testament (all languages) | ~24,000+ | ~125 AD | ~30–50 years |
+| Homer, *Iliad* | ~1,800 | ~200 BC | ~400 years |
+| Caesar, *Gallic Wars* | ~251 | ~9th c. AD | ~900 years |
+| Tacitus, *Annals* | ~33 | ~9th–11th c. AD | ~800–1,000 years |
+| Herodotus, *Histories* | ~109 | ~900 AD | ~1,400 years |
+| Plato | ~210 | ~895 AD | ~1,200 years |
+| Thucydides | ~96 | ~900 AD | ~1,300 years |
+
+{/* VERIFY: Manuscript counts for classical works vary by source and by what is counted (complete, fragmentary, etc.). The figures above come from standard references (Reynolds & Wilson's *Scribes and Scholars*; Metzger's *Manuscripts of the Greek Bible*). They are widely cited but scholars should verify against current critical editions. */}
+
+<ManuscriptChart client:visible />
+
+## Why Quantity Matters
+
+The logic behind manuscript quantity is the logic of triangulation. If you have only one copy of an ancient document, you cannot detect errors — you simply read what you have. If you have ten copies made independently from earlier sources, you can compare them and identify where scribes made mistakes or introduced changes. If you have thousands, the original text becomes recoverable with extremely high confidence.
+
+This is the core insight of textual criticism: **more manuscripts means better ability to reconstruct the original, not more uncertainty.** The misunderstanding — that more variants mean more problems — is a category error. Variants are identified *because* we have so many manuscripts to compare. Fewer manuscripts would mean fewer known variants, but also far less ability to correct them.
+
+Bruce Metzger and Bart Ehrman, whose collaboration on *The Text of the New Testament* remains a standard academic reference, write:
+
+> "The Greek manuscripts of the New Testament are a far richer resource than those of any other ancient literary work." <Footnote id="metzger-text" source="Metzger & Ehrman, p. 51." />
+
+Ehrman uses this richness to argue that we can identify variants and therefore cannot be certain about every word. Metzger uses the same richness to argue that the variants are almost all trivial and the text is recoverable. **Both are working from the same manuscript evidence.** Their disagreement is about interpretation, not data.
+
+## The Proximity Advantage
+
+Quantity alone is only half the story. The other crucial metric is *temporal proximity* — how close in time is our earliest surviving copy to the original composition?
+
+For most ancient works, this gap is measured in centuries. The earliest complete manuscript of Virgil's *Aeneid* dates to roughly 400 AD — about four centuries after Virgil died. The gap for Herodotus is approximately 1,400 years. For Tacitus, whose *Annals* we study to learn about Roman history including Nero's persecution of Christians, the gap is 800–1,000 years.
+
+<GapVisualization client:visible />
+
+For the New Testament, the gap is measured in decades.
+
+The most famous early fragment, **Papyrus 52** (P52), contains a few verses of the Gospel of John (18:31–33, 37–38) and is dated by paleographers to approximately 100–150 AD, with most estimates centering around 125 AD. <Footnote id="intf-manuscripts" source="INTF, Papyrus 52 entry. The papyrus is held at the John Rylands Library, Manchester. Digital facsimile available at digital.library.manchester.ac.uk." /> Given that the Gospel of John is typically dated to 90–100 AD, the gap is roughly a generation.
+
+Other early manuscripts include:
+
+**P66** (Bodmer Papyri II) — Contains most of the Gospel of John. Dated c. 200 AD. Held at the Bodmer Library, Geneva.
+
+**P75** (Bodmer Papyri XIV–XV) — Contains significant portions of Luke and John. Dated c. 175–225 AD. Now held at the Vatican Apostolic Library; available in high-resolution digital facsimile.
+
+**P46** (Chester Beatty Papyrus II) — Contains most of Paul's letters. Dated c. 175–225 AD. Split between the Chester Beatty Library in Dublin and the University of Michigan.
+
+**Codex Sinaiticus** — Complete New Testament plus parts of the Old Testament and early Christian writings. Dated c. 330–360 AD. Originally discovered at St. Catherine's Monastery, Sinai; now divided among the British Library, Leipzig University Library, the National Library of Russia, and St. Catherine's Monastery. [Fully digitized and freely accessible at codexsinaiticus.org](https://www.codexsinaiticus.org/).
+
+## What the Church Fathers Add
+
+The manuscript tradition is supplemented — and in some ways confirmed — by quotations from early Christian writers. By the late second and early third century, writers like Clement of Alexandria, Origen, Tertullian, and Irenaeus were quoting extensively from what we recognize as New Testament texts.
+
+Scholars have observed that if every New Testament manuscript were destroyed, the text could be reconstructed — with very few gaps — from patristic quotations alone. This is sometimes overstated; the precise statistic varies by what is counted. But the underlying point stands: the New Testament text was being quoted in full, at high volume, within a century of composition. <Footnote id="holmes-apostolic" source="Holmes, *The Apostolic Fathers*, 3rd ed. Baker Academic, 2007. The Apostolic Fathers writing c. 95–165 AD already demonstrate extensive familiarity with NT texts." />
+
+## A Note on the Old Testament
+
+The manuscript evidence for the Old Testament is different in character and is treated in a separate article on the Dead Sea Scrolls. The short version: the Dead Sea Scrolls discovery (1946–1956) provided manuscript evidence approximately 1,000 years earlier than what was previously available for most books of the Hebrew Bible, and the degree of agreement with the later Masoretic tradition is remarkable.
+
+## Conclusion
+
+The manuscript evidence for the New Testament is, by any reasonable standard of ancient historiography, extraordinary. No classicist would refuse to study Caesar or Herodotus on the grounds of manuscript gap or quantity. Applying those same standards to the New Testament should produce, at minimum, confidence that we possess a text substantially faithful to what the first-century authors wrote.
+
+That does not settle questions of historical accuracy, theological interpretation, or the truth of resurrection claims. But it means the conversation about Christianity can proceed from a solid documentary foundation — not from a text corrupted beyond recognition.

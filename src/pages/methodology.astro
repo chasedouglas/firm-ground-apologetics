@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { render } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const article = allArticles.find((a) => a.slug === 'methodology');
+
+if (!article) {
+  throw new Error('Methodology article not found');
+}
+
+const { Content, headings } = await render(article);
+---
+
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  lastUpdated={article.data.lastUpdated}
+  sources={article.data.sources}
+  tags={article.data.tags}
+  headings={headings}
+>
+  <Content />
+</ArticleLayout>

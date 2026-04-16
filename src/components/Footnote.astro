@@ -1,0 +1,100 @@
+---
+interface Props {
+  id: string;
+  source: string;
+}
+const { id, source } = Astro.props;
+
+// Collect footnotes on the page — simple incrementing via a global store in the layout
+// For now we use a data attribute approach; the layout's PostContent script collects them
+---
+
+<span
+  class="footnote-ref relative inline-block"
+  data-footnote-id={id}
+  data-footnote-source={source}
+>
+  <button
+    class="footnote-trigger align-super text-xs font-sans font-semibold text-gold-700 dark:text-gold-400 hover:text-gold-600 dark:hover:text-gold-300 cursor-pointer ml-0.5 leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 rounded-sm"
+    aria-haspopup="true"
+    aria-expanded="false"
+    tabindex="0"
+  >
+    [<span class="footnote-number">?</span>]
+  </button>
+  <span
+    class="footnote-popover hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 max-w-screen-sm rounded-lg bg-white dark:bg-ink-900 border border-parchment-200 dark:border-ink-700 shadow-xl p-3 text-xs font-sans text-ink-700 dark:text-parchment-300 leading-relaxed"
+    role="tooltip"
+  >
+    <span class="font-semibold block mb-1 text-ink-500 dark:text-parchment-500 uppercase tracking-wide text-[10px]">
+      Source
+    </span>
+    {source}
+  </span>
+</span>
+
+<style>
+  .footnote-popover::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: theme('colors.parchment.200');
+  }
+  :global(.dark) .footnote-popover::after {
+    border-top-color: theme('colors.ink.700');
+  }
+</style>
+
+<script>
+  // Assign sequential numbers and wire up toggle behavior
+  document.addEventListener('DOMContentLoaded', () => {
+    const refs = document.querySelectorAll<HTMLElement>('.footnote-ref');
+    let counter = 1;
+
+    refs.forEach((ref) => {
+      const numEl = ref.querySelector<HTMLElement>('.footnote-number');
+      if (numEl) numEl.textContent = String(counter++);
+
+      const trigger = ref.querySelector<HTMLButtonElement>('.footnote-trigger');
+      const popover = ref.querySelector<HTMLElement>('.footnote-popover');
+      if (!trigger || !popover) return;
+
+      trigger.setAttribute('aria-label', `Footnote ${numEl?.textContent}`);
+
+      const open = () => {
+        document.querySelectorAll('.footnote-popover').forEach((p) => {
+          if (p !== popover) p.classList.add('hidden');
+        });
+        popover.classList.toggle('hidden');
+        trigger.setAttribute('aria-expanded', popover.classList.contains('hidden') ? 'false' : 'true');
+      };
+
+      trigger.addEventListener('click', open);
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        if (e.key === 'Escape') { popover.classList.add('hidden'); trigger.setAttribute('aria-expanded', 'false'); }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.footnote-ref')) {
+        document.querySelectorAll('.footnote-popover').forEach((p) => p.classList.add('hidden'));
+      }
+    });
+
+    // Collect and render footnote list at bottom of article
+    const list = document.querySelector<HTMLElement>('#footnote-list');
+    if (list) {
+      refs.forEach((ref, i) => {
+        const source = ref.dataset.footnoteSource;
+        const li = document.createElement('li');
+        li.className = 'text-sm text-ink-600 dark:text-parchment-400 leading-relaxed';
+        li.innerHTML = `<span class="font-semibold text-ink-800 dark:text-parchment-200 mr-2">${i + 1}.</span>${source}`;
+        list.appendChild(li);
+      });
+    }
+  });
+</script>

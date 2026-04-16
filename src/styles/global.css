@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sidebar-width: 16rem;
+  }
+
+  html {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-parchment-100 dark:bg-ink-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-parchment-300 dark:bg-ink-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-parchment-400 dark:bg-ink-600;
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold-500 rounded-sm;
+  }
+
+  /* Prose overrides */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    scroll-margin-top: 5rem;
+  }
+
+  .prose h2 {
+    @apply mt-12 mb-4 text-2xl;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid theme('colors.parchment.200');
+  }
+
+  .dark .prose h2 {
+    border-bottom-color: theme('colors.ink.800');
+  }
+
+  .prose h3 {
+    @apply mt-8 mb-3 text-xl;
+  }
+
+  .prose p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    @apply text-ink-800 dark:text-parchment-200;
+  }
+
+  .prose strong {
+    @apply text-ink-900 dark:text-parchment-100;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-gold-400 bg-parchment-100 dark:bg-ink-900 rounded-r-lg py-3 px-4 not-italic;
+  }
+
+  .prose blockquote p {
+    @apply italic text-ink-700 dark:text-parchment-300;
+  }
+
+  .prose table {
+    @apply w-full font-sans text-sm;
+  }
+
+  .prose code {
+    @apply font-mono text-sm bg-parchment-100 dark:bg-ink-800 rounded px-1 py-0.5;
+    font-style: normal;
+  }
+
+  .prose code::before,
+  .prose code::after {
+    content: none;
+  }
+
+  /* Smooth anchor offset for fixed header */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
