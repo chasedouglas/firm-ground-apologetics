@@ -84,12 +84,12 @@ export default function GapVisualization() {
   const sorted = [...works].sort((a, b) => a.gap - b.gap);
 
   return (
-    <div className="my-10 rounded-xl border border-parchment-200 dark:border-ink-700 bg-parchment-50 dark:bg-ink-950 p-6 shadow-sm font-sans">
+    <div className="my-10 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-950 p-6 shadow-sm font-sans">
       <div className="mb-6">
-        <h3 className="font-semibold text-ink-900 dark:text-parchment-100 text-base mb-1">
+        <h3 className="font-semibold text-surface-900 dark:text-surface-100 text-base mb-1">
           Composition-to-Copy Gap
         </h3>
-        <p className="text-xs text-ink-500 dark:text-parchment-500">
+        <p className="text-xs text-surface-500 dark:text-surface-500">
           Years between original composition and earliest surviving manuscript copy.
           Shorter is better — less time for corruption to accumulate.
         </p>
@@ -112,14 +112,14 @@ export default function GapVisualization() {
               className="group cursor-default"
             >
               <div className="flex items-center gap-3 mb-1">
-                <span className={`text-xs font-medium min-w-0 w-48 truncate ${w.highlight ? 'text-gold-700 dark:text-gold-400 font-semibold' : 'text-ink-600 dark:text-parchment-400'}`}>
+                <span className={`text-xs font-medium min-w-0 w-48 truncate ${w.highlight ? 'text-amber-700 dark:text-amber-400 font-semibold' : 'text-surface-600 dark:text-surface-400'}`}>
                   {w.name}
                 </span>
-                <span className="text-xs text-ink-400 dark:text-parchment-600 ml-auto whitespace-nowrap">
+                <span className="text-xs text-surface-400 dark:text-parchment-600 ml-auto whitespace-nowrap">
                   ~{w.gap} years
                 </span>
               </div>
-              <div className="relative h-5 bg-parchment-200 dark:bg-ink-800 rounded-sm overflow-hidden">
+              <div className="relative h-5 bg-surface-200 dark:bg-surface-800 rounded-sm overflow-hidden">
                 <div
                   className="h-full rounded-sm transition-all duration-300"
                   style={{
@@ -130,12 +130,12 @@ export default function GapVisualization() {
                 />
                 {w.highlight && (
                   <div className="absolute inset-y-0 left-0 flex items-center px-2">
-                    <span className="text-xs font-bold text-ink-900">~{w.gap}yr</span>
+                    <span className="text-xs font-bold text-surface-900">~{w.gap}yr</span>
                   </div>
                 )}
               </div>
               {isHovered && (
-                <p className="mt-1.5 text-xs text-ink-500 dark:text-parchment-500 italic leading-relaxed">
+                <p className="mt-1.5 text-xs text-surface-500 dark:text-surface-500 italic leading-relaxed">
                   {w.note}
                 </p>
               )}
@@ -145,16 +145,16 @@ export default function GapVisualization() {
       </div>
 
       {/* Scale */}
-      <div className="mt-5 flex justify-between text-xs text-ink-400 dark:text-parchment-600">
+      <div className="mt-5 flex justify-between text-xs text-surface-400 dark:text-parchment-600">
         <span>0 years</span>
         <span>700 years</span>
         <span>1,400 years</span>
       </div>
-      <div className="h-px bg-parchment-200 dark:bg-ink-800 mt-1" />
+      <div className="h-px bg-surface-200 dark:bg-surface-800 mt-1" />
 
-      <div className="mt-4 flex flex-wrap gap-4 text-xs text-ink-500 dark:text-parchment-500">
+      <div className="mt-4 flex flex-wrap gap-4 text-xs text-surface-500 dark:text-surface-500">
         <span className="flex items-center gap-1.5">
-          <span className="inline-block w-3 h-3 rounded-sm bg-gold-500" />
+          <span className="inline-block w-3 h-3 rounded-sm bg-amber-500" />
           New Testament
         </span>
         <span className="flex items-center gap-1.5">
@@ -163,7 +163,7 @@ export default function GapVisualization() {
         </span>
       </div>
 
-      <p className="mt-4 text-xs text-ink-400 dark:text-parchment-600">
+      <p className="mt-4 text-xs text-surface-400 dark:text-parchment-600">
         {/* VERIFY */} Sources: Reynolds &amp; Wilson, <em>Scribes and Scholars</em> (2013);
         Metzger & Ehrman, <em>The Text of the New Testament</em> (2005).
         Classical manuscript counts are approximate; see Methodology page.

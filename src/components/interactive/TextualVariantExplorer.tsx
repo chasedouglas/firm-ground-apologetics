@@ -106,12 +106,12 @@ export default function TextualVariantExplorer() {
   const passage = passages.find((p) => p.id === passageId)!;
 
   return (
-    <div className="my-10 rounded-xl border border-parchment-200 dark:border-ink-700 bg-parchment-50 dark:bg-ink-950 p-6 shadow-sm font-sans">
+    <div className="my-10 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-950 p-6 shadow-sm font-sans">
       <div className="mb-5">
-        <h3 className="font-semibold text-ink-900 dark:text-parchment-100 text-base mb-1">
+        <h3 className="font-semibold text-surface-900 dark:text-surface-100 text-base mb-1">
           Textual Variant Explorer
         </h3>
-        <p className="text-xs text-ink-500 dark:text-parchment-500">
+        <p className="text-xs text-surface-500 dark:text-surface-500">
           Three passages where textual questions are real and significant — examined honestly, with perspectives from both Ehrman and Wallace.
         </p>
       </div>
@@ -124,8 +124,8 @@ export default function TextualVariantExplorer() {
             onClick={() => { setPassageId(p.id); setActiveType(null); }}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               passageId === p.id
-                ? 'bg-gold-500 dark:bg-gold-600 text-white'
-                : 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 hover:bg-parchment-300 dark:hover:bg-ink-700'
+                ? 'bg-amber-500 dark:bg-amber-600 text-white'
+                : 'bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-300 dark:hover:bg-surface-700'
             }`}
           >
             {p.location}
@@ -133,8 +133,8 @@ export default function TextualVariantExplorer() {
         ))}
       </div>
 
-      <h4 className="font-semibold text-ink-900 dark:text-parchment-100 text-sm mb-1">{passage.name}</h4>
-      <p className="text-sm text-ink-700 dark:text-parchment-300 mb-5 leading-relaxed">{passage.summary}</p>
+      <h4 className="font-semibold text-surface-900 dark:text-surface-100 text-sm mb-1">{passage.name}</h4>
+      <p className="text-sm text-surface-700 dark:text-surface-300 mb-5 leading-relaxed">{passage.summary}</p>
 
       {/* Visual breakdown */}
       <div className="flex flex-col sm:flex-row gap-6 mb-6">
@@ -146,21 +146,21 @@ export default function TextualVariantExplorer() {
               onClick={() => setActiveType(activeType === i ? null : i)}
               className={`w-full flex items-start gap-3 rounded-lg p-3 text-left transition-all ${
                 activeType === i
-                  ? 'bg-white dark:bg-ink-800 shadow-sm border border-parchment-200 dark:border-ink-600'
-                  : 'hover:bg-parchment-100 dark:hover:bg-ink-900'
+                  ? 'bg-white dark:bg-surface-800 shadow-sm border border-surface-200 dark:border-surface-600'
+                  : 'hover:bg-surface-100 dark:hover:bg-surface-900'
               }`}
             >
               <span className="mt-1 w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: t.color }} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold text-ink-800 dark:text-parchment-200">{t.label}</span>
-                  <span className="text-xs font-mono text-ink-500 dark:text-parchment-500">{t.pct}%</span>
+                  <span className="text-xs font-semibold text-surface-800 dark:text-surface-200">{t.label}</span>
+                  <span className="text-xs font-mono text-surface-500 dark:text-surface-500">{t.pct}%</span>
                 </div>
                 {activeType === i && (
                   <div className="mt-2">
-                    <p className="text-xs text-ink-600 dark:text-parchment-400 mb-2">{t.description}</p>
+                    <p className="text-xs text-surface-600 dark:text-surface-400 mb-2">{t.description}</p>
                     {t.example && (
-                      <blockquote className="text-xs italic text-ink-500 dark:text-parchment-500 border-l-2 border-gold-400 pl-2">
+                      <blockquote className="text-xs italic text-surface-500 dark:text-surface-500 border-l-2 border-amber-400 pl-2">
                         {t.example}
                       </blockquote>
                     )}
@@ -176,29 +176,29 @@ export default function TextualVariantExplorer() {
       <div className="grid sm:grid-cols-2 gap-4 mb-5">
         <div className="rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 p-4">
           <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 mb-2 uppercase tracking-wide">Bart Ehrman (Skeptic)</p>
-          <blockquote className="text-xs italic text-ink-700 dark:text-parchment-300 leading-relaxed">
+          <blockquote className="text-xs italic text-surface-700 dark:text-surface-300 leading-relaxed">
             "{passage.ehrmanQuote}"
           </blockquote>
         </div>
         <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 p-4">
           <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2 uppercase tracking-wide">Daniel Wallace (Conservative)</p>
-          <blockquote className="text-xs italic text-ink-700 dark:text-parchment-300 leading-relaxed">
+          <blockquote className="text-xs italic text-surface-700 dark:text-surface-300 leading-relaxed">
             "{passage.walllaceQuote}"
           </blockquote>
         </div>
       </div>
 
       {/* Resolution */}
-      <div className="rounded-lg bg-parchment-100 dark:bg-ink-900 border border-parchment-200 dark:border-ink-700 p-4 mb-4">
-        <p className="text-xs font-semibold text-ink-600 dark:text-parchment-400 mb-2 uppercase tracking-wide">Scholarly Consensus</p>
-        <p className="text-sm text-ink-700 dark:text-parchment-300 leading-relaxed">{passage.resolution}</p>
+      <div className="rounded-lg bg-surface-100 dark:bg-surface-900 border border-surface-200 dark:border-surface-700 p-4 mb-4">
+        <p className="text-xs font-semibold text-surface-600 dark:text-surface-400 mb-2 uppercase tracking-wide">Scholarly Consensus</p>
+        <p className="text-sm text-surface-700 dark:text-surface-300 leading-relaxed">{passage.resolution}</p>
       </div>
       <div className="rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 p-4">
         <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-2 uppercase tracking-wide">Doctrinal Impact</p>
-        <p className="text-sm text-ink-700 dark:text-parchment-300 leading-relaxed">{passage.doctrinalImpact}</p>
+        <p className="text-sm text-surface-700 dark:text-surface-300 leading-relaxed">{passage.doctrinalImpact}</p>
       </div>
 
-      <p className="mt-4 text-xs text-ink-400 dark:text-parchment-600">
+      <p className="mt-4 text-xs text-surface-400 dark:text-parchment-600">
         Sources: Ehrman, <em>Misquoting Jesus</em> (2005); Metzger, <em>A Textual Commentary on the Greek NT</em> (1994); Wallace/CSNTM responses.
         Percentage distributions are approximate.
       </p>

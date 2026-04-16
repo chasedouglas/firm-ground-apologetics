@@ -204,13 +204,13 @@ export default function ManuscriptTimeline() {
   const pct = ((scrubYear - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * 100;
 
   return (
-    <div className="my-10 rounded-xl border border-parchment-200 dark:border-ink-700 bg-parchment-50 dark:bg-ink-950 p-6 shadow-sm font-sans">
+    <div className="my-10 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-950 p-6 shadow-sm font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h3 className="font-semibold text-ink-900 dark:text-parchment-100 text-base">
+          <h3 className="font-semibold text-surface-900 dark:text-surface-100 text-base">
             Manuscript Discovery Timeline
           </h3>
-          <p className="text-xs text-ink-500 dark:text-parchment-500 mt-1">
+          <p className="text-xs text-surface-500 dark:text-surface-500 mt-1">
             Drag the slider to see manuscripts accumulate. Click any to open its record.
           </p>
         </div>
@@ -218,7 +218,7 @@ export default function ManuscriptTimeline() {
           {(['papyrus', 'uncial', 'discovery'] as Manuscript['category'][]).map((cat) => (
             <span key={cat} className="flex items-center gap-1.5">
               <span className={`inline-block w-2 h-2 rounded-full ${categoryColor(cat)}`} />
-              <span className="text-ink-500 dark:text-parchment-500">{categoryLabel(cat)}</span>
+              <span className="text-surface-500 dark:text-surface-500">{categoryLabel(cat)}</span>
             </span>
           ))}
         </div>
@@ -226,13 +226,13 @@ export default function ManuscriptTimeline() {
 
       {/* Scrubber */}
       <div className="relative mb-8">
-        <div className="flex justify-between text-xs text-ink-400 dark:text-parchment-600 mb-2">
+        <div className="flex justify-between text-xs text-surface-400 dark:text-parchment-600 mb-2">
           <span>100 AD</span>
           <span>Today</span>
         </div>
-        <div className="relative h-2 bg-parchment-200 dark:bg-ink-800 rounded-full">
+        <div className="relative h-2 bg-surface-200 dark:bg-surface-800 rounded-full">
           <div
-            className="absolute left-0 top-0 h-2 bg-gold-500 rounded-full transition-none"
+            className="absolute left-0 top-0 h-2 bg-amber-500 rounded-full transition-none"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -246,7 +246,7 @@ export default function ManuscriptTimeline() {
           aria-label="Drag to explore manuscripts by date"
         />
         <div
-          className="absolute top-6 text-xs font-semibold text-gold-600 dark:text-gold-400 -translate-x-1/2"
+          className="absolute top-6 text-xs font-semibold text-amber-600 dark:text-amber-400 -translate-x-1/2"
           style={{ left: `${pct}%` }}
         >
           {Math.round(scrubYear) >= 1960 ? 'Today' : `${Math.round(scrubYear)} AD`}
@@ -258,20 +258,20 @@ export default function ManuscriptTimeline() {
           <button
             onClick={() => { setScrubYear(MIN_YEAR); setIsPlaying(true); lastTimeRef.current = 0; }}
             disabled={isPlaying}
-            className="px-3 py-1.5 text-xs font-medium rounded-md bg-gold-500 dark:bg-gold-600 text-white disabled:opacity-50 transition-opacity"
+            className="px-3 py-1.5 text-xs font-medium rounded-md bg-amber-500 dark:bg-amber-600 text-white disabled:opacity-50 transition-opacity"
           >
             ▶ Auto-play
           </button>
           <button
             onClick={() => setIsPlaying(false)}
             disabled={!isPlaying}
-            className="px-3 py-1.5 text-xs font-medium rounded-md bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-medium rounded-md bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 disabled:opacity-50"
           >
             ■ Pause
           </button>
           <button
             onClick={() => { setIsPlaying(false); setScrubYear(MAX_YEAR); }}
-            className="px-3 py-1.5 text-xs font-medium rounded-md bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400"
+            className="px-3 py-1.5 text-xs font-medium rounded-md bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400"
           >
             Show All
           </button>
@@ -281,7 +281,7 @@ export default function ManuscriptTimeline() {
       {/* Manuscript dots */}
       <div className="flex flex-wrap gap-3 min-h-16" role="list" aria-label="Manuscripts visible at selected date">
         {visible.length === 0 && (
-          <p className="text-sm text-ink-400 dark:text-parchment-600 italic">
+          <p className="text-sm text-surface-400 dark:text-parchment-600 italic">
             Drag the slider forward to reveal manuscripts…
           </p>
         )}
@@ -294,23 +294,23 @@ export default function ManuscriptTimeline() {
             aria-expanded={selected?.id === m.id}
             className={`group relative flex flex-col items-center gap-1.5 px-3 py-2 rounded-lg border text-xs transition-all cursor-pointer ${
               selected?.id === m.id
-                ? 'border-gold-500 bg-gold-50 dark:bg-gold-900/20 shadow-md'
-                : 'border-parchment-200 dark:border-ink-700 bg-white dark:bg-ink-900 hover:border-gold-400 dark:hover:border-gold-600 hover:shadow-sm'
+                ? 'border-amber-500 bg-gold-50 dark:bg-amber-900/20 shadow-md'
+                : 'border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 hover:border-amber-400 dark:hover:border-amber-600 hover:shadow-sm'
             }`}
           >
             <span className={`w-2.5 h-2.5 rounded-full ${categoryColor(m.category)}`} />
-            <span className="font-semibold text-ink-800 dark:text-parchment-200">{m.shortName}</span>
-            <span className="text-ink-400 dark:text-parchment-600">{m.dateLabel}</span>
+            <span className="font-semibold text-surface-800 dark:text-surface-200">{m.shortName}</span>
+            <span className="text-surface-400 dark:text-parchment-600">{m.dateLabel}</span>
           </button>
         ))}
       </div>
 
       {/* Detail panel */}
       {selected && (
-        <div className="mt-6 p-5 rounded-lg border border-gold-300 dark:border-gold-800 bg-white dark:bg-ink-900 shadow-md">
+        <div className="mt-6 p-5 rounded-lg border border-amber-300 dark:border-amber-800 bg-white dark:bg-surface-900 shadow-md">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h4 className="font-semibold text-ink-900 dark:text-parchment-100 text-sm mb-1">
+              <h4 className="font-semibold text-surface-900 dark:text-surface-100 text-sm mb-1">
                 {selected.name}
               </h4>
               <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium text-white ${categoryColor(selected.category)}`}>
@@ -319,7 +319,7 @@ export default function ManuscriptTimeline() {
             </div>
             <button
               onClick={() => setSelected(null)}
-              className="text-ink-400 dark:text-parchment-500 hover:text-ink-700 dark:hover:text-parchment-300 text-lg leading-none"
+              className="text-surface-400 dark:text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 text-lg leading-none"
               aria-label="Close detail panel"
             >
               ×
@@ -327,29 +327,29 @@ export default function ManuscriptTimeline() {
           </div>
           <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
             <div>
-              <dt className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-1">Date</dt>
-              <dd className="text-ink-800 dark:text-parchment-200">{selected.dateLabel}</dd>
+              <dt className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-1">Date</dt>
+              <dd className="text-surface-800 dark:text-surface-200">{selected.dateLabel}</dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-1">Location</dt>
-              <dd className="text-ink-800 dark:text-parchment-200">{selected.location}</dd>
+              <dt className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-1">Location</dt>
+              <dd className="text-surface-800 dark:text-surface-200">{selected.location}</dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-1">Contents</dt>
-              <dd className="text-ink-800 dark:text-parchment-200">{selected.contents}</dd>
+              <dt className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-1">Contents</dt>
+              <dd className="text-surface-800 dark:text-surface-200">{selected.contents}</dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-1">Significance</dt>
-              <dd className="text-ink-700 dark:text-parchment-300">{selected.significance}</dd>
+              <dt className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-1">Significance</dt>
+              <dd className="text-surface-700 dark:text-surface-300">{selected.significance}</dd>
             </div>
             <div className="sm:col-span-2">
-              <dt className="text-xs font-semibold text-ink-500 dark:text-parchment-500 uppercase tracking-wide mb-1">Digital Access</dt>
-              <dd className="text-ink-700 dark:text-parchment-300 text-xs mb-2">{selected.imageNote}</dd>
+              <dt className="text-xs font-semibold text-surface-500 dark:text-surface-500 uppercase tracking-wide mb-1">Digital Access</dt>
+              <dd className="text-surface-700 dark:text-surface-300 text-xs mb-2">{selected.imageNote}</dd>
               <a
                 href={selected.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-xs font-medium text-gold-700 dark:text-gold-400 underline"
+                className="inline-block text-xs font-medium text-amber-700 dark:text-amber-400 underline"
               >
                 Visit digital archive →
               </a>
@@ -358,7 +358,7 @@ export default function ManuscriptTimeline() {
         </div>
       )}
 
-      <p className="mt-6 text-xs text-ink-400 dark:text-parchment-600">
+      <p className="mt-6 text-xs text-surface-400 dark:text-parchment-600">
         Sources: INTF Münster manuscript registry; Metzger & Ehrman,{' '}
         <em>The Text of the New Testament</em>, 4th ed. (2005); Israel Museum Dead Sea Scrolls Project.
       </p>

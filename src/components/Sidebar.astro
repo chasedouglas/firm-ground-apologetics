@@ -3,109 +3,82 @@ import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('articles');
 
-// Build section tree
-type NavItem = {
-  title: string;
-  slug: string;
-  order: number;
-  children: NavItem[];
-  section: string;
-  subsection?: string;
-};
+const sectionOrder: Record<string, number> = { meta: 0, 'bible-reliability': 1 };
+const sectionLabels: Record<string, string> = { meta: 'Site', 'bible-reliability': 'Bible Reliability' };
 
-const sectionMap = new Map<string, NavItem[]>();
-const sectionOrder: Record<string, number> = {
-  'meta': 0,
-  'bible-reliability': 1,
-};
-
-for (const article of allArticles) {
-  const { section, subsection, order, title } = article.data;
-  const slug = article.slug;
-
-  if (!sectionMap.has(section)) sectionMap.set(section, []);
-
-  sectionMap.get(section)!.push({
-    title,
-    slug,
-    order,
-    children: [],
-    section,
-    subsection,
-  });
+const sectionMap = new Map<string, typeof allArticles>();
+for (const a of allArticles) {
+  const s = a.data.section;
+  if (!sectionMap.has(s)) sectionMap.set(s, []);
+  sectionMap.get(s)!.push(a);
 }
-
-// Sort each section's articles
-const sectionLabels: Record<string, string> = {
-  'meta': 'Site',
-  'bible-reliability': 'Bible Reliability',
-};
 
 const sections = Array.from(sectionMap.entries())
   .sort(([a], [b]) => (sectionOrder[a] ?? 99) - (sectionOrder[b] ?? 99))
   .map(([key, items]) => ({
     key,
     label: sectionLabels[key] ?? key,
-    items: items.sort((a, b) => a.order - b.order),
+    items: items.sort((a, b) => a.data.order - b.data.order),
   }));
 
 const currentPath = Astro.url.pathname;
 
 function slugToHref(slug: string): string {
-  // article slugs like "bible-reliability/manuscript-evidence/new-testament"
-  // → "/bible-reliability/manuscript-evidence/new-testament"
-  const parts = slug.split('/');
-  // Remove leading "bible-reliability" duplicate if section already included
-  return '/' + parts.join('/');
+  return '/' + slug.split('/').join('/');
 }
 ---
 
+<!-- Desktop sidebar -->
 <aside
   id="sidebar"
-  class="hidden md:flex flex-col w-64 shrink-0 border-r border-parchment-200 dark:border-ink-800 min-h-screen bg-parchment-50 dark:bg-ink-950 pt-6 pb-12 overflow-y-auto"
+  class="hidden md:flex flex-col w-[15rem] shrink-0 border-r border-surface-100 dark:border-surface-800/80 min-h-[calc(100vh-3.25rem)] bg-surface-50/50 dark:bg-surface-950 pt-7 pb-16 overflow-y-auto sticky top-[3.25rem]"
   aria-label="Site navigation"
 >
-  <div class="px-4 mb-6">
-    <a href="/" class="flex items-center gap-2.5 group">
-      <span class="text-xl font-serif font-bold text-ink-900 dark:text-parchment-100 group-hover:text-gold-700 dark:group-hover:text-gold-400 transition-colors">
+  <!-- Logo -->
+  <div class="px-5 mb-8">
+    <a href="/" class="group block">
+      <span class="font-display text-[1.25rem] font-normal tracking-tight text-surface-900 dark:text-surface-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors leading-tight">
         Firm Ground
       </span>
+      <p class="text-[0.65rem] font-sans text-surface-400 dark:text-surface-600 mt-0.5 tracking-wide uppercase">
+        Apologetics Resource
+      </p>
     </a>
-    <p class="text-xs text-ink-400 dark:text-parchment-600 mt-1 font-sans">A Christian Apologetics Resource</p>
   </div>
 
-  <nav class="flex-1 px-2">
+  <nav class="flex-1 px-3 space-y-6">
     {sections.map(({ key, label, items }) => (
-      <div class="mb-6">
+      <div>
         {key !== 'meta' && (
-          <p class="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 font-sans">
+          <p class="px-2 mb-2 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-surface-400 dark:text-surface-600 font-sans">
             {label}
           </p>
         )}
-        <ul class="space-y-0.5">
+        <ul class="space-y-px">
           {items.map((item) => {
             const href = slugToHref(item.slug);
             const isActive = currentPath === href || currentPath === href + '/';
-            const isParent = currentPath.startsWith(href + '/');
+            const isParent = !isActive && currentPath.startsWith(href + '/');
+            const isNested = !!item.data.subsection;
             return (
               <li>
                 <a
                   href={href}
                   class:list={[
-                    'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm font-sans transition-colors leading-snug',
-                    item.subsection ? 'pl-5 text-xs' : '',
+                    'flex items-center gap-2 rounded-lg font-sans transition-all leading-snug',
+                    isNested ? 'ml-3 py-1 px-2 text-[0.75rem]' : 'py-1.5 px-2 text-[0.8rem]',
                     isActive
-                      ? 'bg-gold-100 dark:bg-gold-900/20 text-gold-800 dark:text-gold-300 font-semibold'
+                      ? 'bg-amber-50 dark:bg-amber-900/15 text-amber-800 dark:text-amber-300 font-semibold'
                       : isParent
-                      ? 'text-ink-700 dark:text-parchment-300 font-medium'
-                      : 'text-ink-600 dark:text-parchment-400 hover:text-ink-900 dark:hover:text-parchment-100 hover:bg-parchment-100 dark:hover:bg-ink-900',
+                      ? 'text-surface-700 dark:text-surface-300 font-medium'
+                      : 'text-surface-500 dark:text-surface-500 hover:text-surface-800 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-800/60',
                   ]}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   {isActive && (
-                    <span class="w-1 h-1 rounded-full bg-gold-500 shrink-0" aria-hidden="true" />
+                    <span class="w-1 h-1 rounded-full bg-amber-500 shrink-0" aria-hidden="true" />
                   )}
-                  {item.title}
+                  {item.data.title}
                 </a>
               </li>
             );
@@ -114,15 +87,15 @@ function slugToHref(slug: string): string {
       </div>
     ))}
 
-    <!-- Future sections placeholder -->
-    <div class="mb-6 opacity-40">
-      <p class="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 font-sans">
+    <!-- Coming soon -->
+    <div class="opacity-35 pointer-events-none select-none">
+      <p class="px-2 mb-2 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-surface-400 dark:text-surface-600 font-sans">
         Coming Soon
       </p>
-      <ul class="space-y-0.5">
+      <ul class="space-y-px">
         {['Historical Jesus', 'The Resurrection', 'Prophecy', 'Archaeology'].map((s) => (
           <li>
-            <span class="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm font-sans text-ink-400 dark:text-parchment-600 cursor-not-allowed">
+            <span class="block py-1.5 px-2 text-[0.8rem] font-sans text-surface-400 dark:text-surface-600 rounded-lg">
               {s}
             </span>
           </li>
@@ -131,41 +104,34 @@ function slugToHref(slug: string): string {
     </div>
   </nav>
 
-  <div class="px-4 pt-4 border-t border-parchment-200 dark:border-ink-800">
-    <a
-      href="/methodology"
-      class="text-xs font-sans text-ink-400 dark:text-parchment-600 hover:text-ink-700 dark:hover:text-parchment-300 transition-colors"
-    >
+  <div class="px-5 pt-5 border-t border-surface-100 dark:border-surface-800 mt-4">
+    <a href="/methodology" class="text-[0.7rem] font-sans text-surface-400 dark:text-surface-600 hover:text-surface-700 dark:hover:text-surface-300 transition-colors">
       Our methodology →
     </a>
   </div>
 </aside>
 
-<!-- Mobile sidebar toggle -->
+<!-- Mobile FAB -->
 <button
   id="sidebar-toggle"
-  class="md:hidden fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gold-500 dark:bg-gold-600 shadow-lg flex items-center justify-center text-white"
+  class="md:hidden fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-surface-900 dark:bg-surface-100 shadow-lg shadow-surface-900/20 flex items-center justify-center text-white dark:text-surface-900"
   aria-label="Toggle navigation"
   aria-expanded="false"
   aria-controls="mobile-sidebar"
 >
-  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
   </svg>
 </button>
 
-<div
-  id="mobile-sidebar"
-  class="md:hidden fixed inset-0 z-30 hidden"
-  role="dialog"
-  aria-label="Navigation"
->
-  <div class="absolute inset-0 bg-ink-950/50 backdrop-blur-sm" id="mobile-overlay"></div>
-  <div class="absolute left-0 top-0 bottom-0 w-72 bg-parchment-50 dark:bg-ink-950 shadow-xl overflow-y-auto p-4">
-    <div class="flex items-center justify-between mb-6">
-      <a href="/" class="font-serif font-bold text-lg text-ink-900 dark:text-parchment-100">Firm Ground</a>
-      <button id="sidebar-close" class="p-1 text-ink-500 dark:text-parchment-500" aria-label="Close menu">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+<!-- Mobile drawer -->
+<div id="mobile-sidebar" class="md:hidden fixed inset-0 z-30 hidden" role="dialog" aria-label="Navigation">
+  <div class="absolute inset-0 bg-surface-950/60 backdrop-blur-sm" id="mobile-overlay" />
+  <div class="absolute left-0 top-0 bottom-0 w-72 bg-white dark:bg-surface-950 shadow-2xl overflow-y-auto p-5">
+    <div class="flex items-center justify-between mb-7">
+      <a href="/" class="font-display text-xl font-normal text-surface-900 dark:text-surface-50">Firm Ground</a>
+      <button id="sidebar-close" class="p-1 text-surface-400" aria-label="Close menu">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -173,27 +139,22 @@ function slugToHref(slug: string): string {
     {sections.map(({ key, label, items }) => (
       <div class="mb-5">
         {key !== 'meta' && (
-          <p class="mb-2 text-[10px] font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 font-sans">
-            {label}
-          </p>
+          <p class="mb-2 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-surface-400 dark:text-surface-600 font-sans">{label}</p>
         )}
-        <ul class="space-y-1">
+        <ul class="space-y-0.5">
           {items.map((item) => {
             const href = slugToHref(item.slug);
             const isActive = currentPath === href || currentPath === href + '/';
             return (
               <li>
-                <a
-                  href={href}
-                  class:list={[
-                    'block px-2 py-1.5 rounded-md text-sm font-sans transition-colors',
-                    item.subsection ? 'pl-4 text-xs' : '',
-                    isActive
-                      ? 'bg-gold-100 dark:bg-gold-900/20 text-gold-800 dark:text-gold-300 font-semibold'
-                      : 'text-ink-600 dark:text-parchment-400 hover:text-ink-900 dark:hover:text-parchment-100',
-                  ]}
-                >
-                  {item.title}
+                <a href={href} class:list={[
+                  'block py-1.5 px-2 rounded-lg text-sm font-sans transition-colors',
+                  item.data.subsection ? 'ml-3 text-xs' : '',
+                  isActive
+                    ? 'bg-amber-50 dark:bg-amber-900/15 text-amber-800 dark:text-amber-300 font-semibold'
+                    : 'text-surface-500 dark:text-surface-500 hover:text-surface-800 dark:hover:text-surface-200',
+                ]}>
+                  {item.data.title}
                 </a>
               </li>
             );
@@ -210,18 +171,10 @@ function slugToHref(slug: string): string {
   const overlay = document.getElementById('mobile-overlay');
   const closeBtn = document.getElementById('sidebar-close');
 
-  function openSidebar() {
-    sidebar?.classList.remove('hidden');
-    toggle?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeSidebar() {
-    sidebar?.classList.add('hidden');
-    toggle?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+  const open  = () => { sidebar?.classList.remove('hidden'); toggle?.setAttribute('aria-expanded','true');  document.body.style.overflow = 'hidden'; };
+  const close = () => { sidebar?.classList.add('hidden');    toggle?.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; };
 
-  toggle?.addEventListener('click', openSidebar);
-  overlay?.addEventListener('click', closeSidebar);
-  closeBtn?.addEventListener('click', closeSidebar);
+  toggle?.addEventListener('click', open);
+  overlay?.addEventListener('click', close);
+  closeBtn?.addEventListener('click', close);
 </script>

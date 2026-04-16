@@ -111,19 +111,19 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Toolti
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-parchment-50 dark:bg-ink-900 border border-parchment-200 dark:border-ink-700 rounded-lg p-4 shadow-xl max-w-xs text-sm font-sans">
-      <p className="font-semibold text-ink-900 dark:text-parchment-100 mb-1">{d.details.fullName}</p>
-      <p className="text-ink-600 dark:text-parchment-400 text-xs mb-2">Earliest copy: {d.details.earliest}</p>
-      <p className="text-ink-600 dark:text-parchment-400 text-xs mb-2">Location: {d.details.location}</p>
+    <div className="bg-surface-50 dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-lg p-4 shadow-xl max-w-xs text-sm font-sans">
+      <p className="font-semibold text-surface-900 dark:text-surface-100 mb-1">{d.details.fullName}</p>
+      <p className="text-surface-600 dark:text-surface-400 text-xs mb-2">Earliest copy: {d.details.earliest}</p>
+      <p className="text-surface-600 dark:text-surface-400 text-xs mb-2">Location: {d.details.location}</p>
       {d.details.note && !d.details.note.startsWith('VERIFY:') && (
-        <p className="text-ink-500 dark:text-parchment-500 text-xs italic">{d.details.note}</p>
+        <p className="text-surface-500 dark:text-surface-500 text-xs italic">{d.details.note}</p>
       )}
       {d.details.link && (
         <a
           href={d.details.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-block text-gold-600 dark:text-gold-400 text-xs underline"
+          className="mt-2 inline-block text-amber-600 dark:text-amber-400 text-xs underline"
         >
           View institution →
         </a>
@@ -140,13 +140,13 @@ export default function ManuscriptChart() {
   );
 
   return (
-    <div className="my-10 rounded-xl border border-parchment-200 dark:border-ink-700 bg-parchment-50 dark:bg-ink-950 p-6 shadow-sm">
+    <div className="my-10 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-950 p-6 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h3 className="font-sans font-semibold text-ink-900 dark:text-parchment-100 text-base">
+          <h3 className="font-sans font-semibold text-surface-900 dark:text-surface-100 text-base">
             Manuscript Evidence Comparison
           </h3>
-          <p className="text-xs text-ink-500 dark:text-parchment-500 mt-1 font-sans">
+          <p className="text-xs text-surface-500 dark:text-surface-500 mt-1 font-sans">
             Hover/tap bars for details and source links
           </p>
         </div>
@@ -155,8 +155,8 @@ export default function ManuscriptChart() {
             onClick={() => setMetric('manuscripts')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               metric === 'manuscripts'
-                ? 'bg-gold-500 text-white dark:bg-gold-600'
-                : 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 hover:bg-parchment-300 dark:hover:bg-ink-700'
+                ? 'bg-amber-500 text-white dark:bg-amber-600'
+                : 'bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-300 dark:hover:bg-surface-700'
             }`}
           >
             Manuscript Count
@@ -165,8 +165,8 @@ export default function ManuscriptChart() {
             onClick={() => setMetric('gap')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               metric === 'gap'
-                ? 'bg-gold-500 text-white dark:bg-gold-600'
-                : 'bg-parchment-200 dark:bg-ink-800 text-ink-600 dark:text-parchment-400 hover:bg-parchment-300 dark:hover:bg-ink-700'
+                ? 'bg-amber-500 text-white dark:bg-amber-600'
+                : 'bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-300 dark:hover:bg-surface-700'
             }`}
           >
             Time Gap (years)
@@ -221,27 +221,27 @@ export default function ManuscriptChart() {
       <noscript>
         <table className="w-full text-sm font-sans mt-4">
           <thead>
-            <tr className="border-b border-parchment-200 dark:border-ink-700">
-              <th className="text-left py-2 text-ink-700 dark:text-parchment-300">Work</th>
-              <th className="text-right py-2 text-ink-700 dark:text-parchment-300">Manuscripts</th>
-              <th className="text-right py-2 text-ink-700 dark:text-parchment-300">Gap (years)</th>
+            <tr className="border-b border-surface-200 dark:border-surface-700">
+              <th className="text-left py-2 text-surface-700 dark:text-surface-300">Work</th>
+              <th className="text-right py-2 text-surface-700 dark:text-surface-300">Manuscripts</th>
+              <th className="text-right py-2 text-surface-700 dark:text-surface-300">Gap (years)</th>
             </tr>
           </thead>
           <tbody>
             {works.map((w) => (
-              <tr key={w.name} className="border-b border-parchment-100 dark:border-ink-800">
-                <td className="py-2 text-ink-800 dark:text-parchment-200">{w.details.fullName}</td>
-                <td className="py-2 text-right text-ink-600 dark:text-parchment-400">
+              <tr key={w.name} className="border-b border-surface-100 dark:border-surface-800">
+                <td className="py-2 text-surface-800 dark:text-surface-200">{w.details.fullName}</td>
+                <td className="py-2 text-right text-surface-600 dark:text-surface-400">
                   {w.manuscripts.toLocaleString()}
                 </td>
-                <td className="py-2 text-right text-ink-600 dark:text-parchment-400">~{w.gap}</td>
+                <td className="py-2 text-right text-surface-600 dark:text-surface-400">~{w.gap}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </noscript>
 
-      <p className="mt-4 text-xs text-ink-400 dark:text-parchment-600 font-sans">
+      <p className="mt-4 text-xs text-surface-400 dark:text-parchment-600 font-sans">
         Sources: INTF Münster (NT counts); Reynolds & Wilson, <em>Scribes and Scholars</em> (classical works);
         Metzger & Ehrman, <em>The Text of the New Testament</em>, 4th ed. (2005).{' '}
         Some classical manuscript counts are approximate (VERIFY against Reynolds &amp; Wilson); see methodology page.

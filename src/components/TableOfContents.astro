@@ -1,35 +1,25 @@
 ---
-interface Heading {
-  depth: number;
-  slug: string;
-  text: string;
-}
-interface Props {
-  headings: Heading[];
-}
+interface Heading { depth: number; slug: string; text: string; }
+interface Props { headings: Heading[]; }
 const { headings } = Astro.props;
 const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 {filtered.length > 1 && (
-  <nav
-    id="toc"
-    aria-label="Table of contents"
-    class="hidden xl:block sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto text-sm font-sans"
-  >
-    <p class="text-xs font-semibold uppercase tracking-widest text-ink-400 dark:text-parchment-600 mb-3">
+  <nav id="toc" aria-label="Table of contents" class="hidden xl:block sticky top-[5rem] max-h-[calc(100vh-6rem)] overflow-y-auto font-sans">
+    <p class="text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-surface-400 dark:text-surface-600 mb-3">
       On this page
     </p>
-    <ol class="space-y-1">
+    <ol class="space-y-0.5">
       {filtered.map((h) => (
         <li class={h.depth === 3 ? 'pl-3' : ''}>
           <a
             href={`#${h.slug}`}
-            class:list={[
-              'toc-link block py-0.5 text-ink-500 dark:text-parchment-500 hover:text-ink-800 dark:hover:text-parchment-200 transition-colors leading-snug',
-              h.depth === 2 ? 'text-sm' : 'text-xs',
-            ]}
             data-heading={h.slug}
+            class:list={[
+              'toc-link block py-0.5 text-surface-400 dark:text-surface-600 hover:text-surface-700 dark:hover:text-surface-300 transition-colors leading-snug',
+              h.depth === 2 ? 'text-[0.75rem]' : 'text-[0.7rem]',
+            ]}
           >
             {h.text}
           </a>
@@ -41,28 +31,24 @@ const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 <script>
   const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
-  const headingIds = Array.from(links).map((l) => l.dataset.heading!);
-
   const observer = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          links.forEach((l) => {
-            const active = l.dataset.heading === entry.target.id;
-            l.classList.toggle('text-gold-600', active);
-            l.classList.toggle('dark:text-gold-400', active);
-            l.classList.toggle('font-semibold', active);
-            l.classList.toggle('text-ink-500', !active);
-            l.classList.toggle('dark:text-parchment-500', !active);
-          });
-        }
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        links.forEach((l) => {
+          const active = l.dataset.heading === e.target.id;
+          l.classList.toggle('text-amber-600', active);
+          l.classList.toggle('dark:text-amber-400', active);
+          l.classList.toggle('font-medium', active);
+          l.classList.toggle('text-surface-400', !active);
+          l.classList.toggle('dark:text-surface-600', !active);
+        });
       }
     },
-    { rootMargin: '-10% 0% -80% 0%', threshold: 0 }
+    { rootMargin: '-10% 0% -80% 0%' }
   );
-
-  headingIds.forEach((id) => {
-    const el = document.getElementById(id);
+  document.querySelectorAll<HTMLElement>('.toc-link[data-heading]').forEach((l) => {
+    const el = document.getElementById(l.dataset.heading!);
     if (el) observer.observe(el);
   });
 </script>

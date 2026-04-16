@@ -22,7 +22,7 @@ export default function DarkModeToggle() {
     <button
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="flex items-center justify-center w-8 h-8 rounded-md text-ink-500 dark:text-parchment-400 hover:bg-parchment-200 dark:hover:bg-ink-800 transition-colors"
+      className="flex items-center justify-center w-8 h-8 rounded-md text-surface-400 dark:text-surface-500 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
     >
       {dark ? (
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
