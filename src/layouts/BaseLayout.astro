@@ -7,9 +7,10 @@ import SearchModal from '../components/SearchModal.tsx';
 interface Props {
   title: string;
   description?: string;
+  hideSidebar?: boolean;
 }
 
-const { title, description = 'A rigorous Christian apologetics resource for believers and skeptics.' } = Astro.props;
+const { title, description = 'A rigorous Christian apologetics resource for believers and skeptics.', hideSidebar = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://apologetics.fiveandtwo.co');
 ---
 
@@ -67,7 +68,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://apologet
   </header>
 
   <div class="flex pt-[3.25rem] max-w-screen-2xl mx-auto">
-    <Sidebar />
+    {!hideSidebar && <Sidebar />}
     <main class="flex-1 min-w-0">
       <slot />
     </main>
