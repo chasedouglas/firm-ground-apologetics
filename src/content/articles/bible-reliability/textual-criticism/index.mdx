@@ -35,84 +35,43 @@ sources:
 
 import Footnote from '../../../../components/Footnote.astro';
 import TextualVariantExplorer from '../../../../components/interactive/TextualVariantExplorer.tsx';
+import ExpandSection from '../../../../components/ExpandSection.tsx';
 
 # Textual Criticism
 
-Textual criticism is the discipline of reconstructing original texts from imperfect copies. It applies equally to Homer, Shakespeare, and the New Testament — the techniques are the same regardless of the text's religious significance.
-
-When a skeptic says "the Bible has hundreds of thousands of errors," they are usually referencing the findings of textual criticism. When an apologist says "99% of variants are trivial," they are also referencing those findings. Both are drawing from the same academic discipline, often reaching different conclusions about what the data means.
-
-This section explains what textual criticism actually does and what it has found.
-
-## What Is a Variant?
-
-A **textual variant** is any place where manuscripts differ from one another. If one manuscript spells a word one way and another manuscript spells it differently, that is a variant. If one manuscript includes a word that another omits, that is a variant. If two manuscripts arrange words in different orders, that is a variant.
-
-Variants accumulate in any hand-copied tradition. Every time a scribe copies a manuscript, the possibility for error — and sometimes intentional alteration — exists. Over centuries of copying, variants accumulate.
-
-The number of variants in the New Testament manuscript tradition is often cited as 200,000–400,000. <Footnote id="ehrman-misquoting" source="Ehrman, *Misquoting Jesus*, p. 89: 'There are more variations among our manuscripts than there are words in the New Testament.'" /> This large number, often cited without context, has produced significant public alarm. The context matters enormously.
-
-## Classifying Variants
-
-Textual critics classify variants into categories based on their significance. The standard taxonomy:
-
-**1. Spelling and Nonsense Variants (~75–80% of all variants)**
-
-The majority of variants are spelling differences — the Greek equivalent of "honor" vs. "honour," or unintentional misspellings that no one would construe as meaningful. These are called *orthographic* variants. They are variants by definition but have zero effect on meaning.
-
-**2. Word-Order Variants (~10–15%)**
-
-Greek syntax is relatively flexible, and word order in Greek often carries emphasis but rarely changes fundamental meaning. "Jesus loves John" and "John Jesus loves" are both valid Greek constructions that communicate the same basic fact. Many variants in this category are entirely inconsequential.
-
-**3. Synonymous Variants (~5–10%)**
-
-Variants where a scribe substituted a synonym — "Lord" for "Jesus," for example, or vice versa. These are meaningful as evidence about scribal habits and occasionally about theological tendencies, but they rarely affect the substance of a passage.
-
-**4. Meaningful and Viable Variants (~1–2%)**
-
-These are variants that (a) affect the meaning of the text in some way and (b) could plausibly represent the original reading based on external manuscript evidence. This is the category that matters for serious textual study.
-
-Even within this category, the vast majority of meaningful variants do not affect any doctrine that is not taught elsewhere in the New Testament. Textual critics across the theological spectrum have noted this.
+There are 200,000–400,000 variants across New Testament manuscripts. Here's what that actually means — and what both Ehrman and Wallace agree on.
 
 <TextualVariantExplorer client:visible />
 
-## What Ehrman and Wallace Agree On
+<ExpandSection label="What a variant is and how they're classified">
 
-The scholarly conversation about New Testament variants is often presented as a battle between Christian apologists and skeptics. The reality is more nuanced.
+A **textual variant** is any place where manuscripts differ from one another — a different spelling, a word omitted, two words swapped. They accumulate in any hand-copied tradition. Over centuries of copying, they add up.
 
-Bart Ehrman — whose popular book *Misquoting Jesus* is the most widely read skeptical treatment of this subject — acknowledges in that same book:
+The number 200,000–400,000 sounds alarming. Context is everything:
 
-> "It would be a mistake…to think that there are thousands of places in which the meaning of the text is in doubt… In fact, the most significant textual variants affect places that affect no important Christian doctrine." <Footnote id="ehrman-misquoting" source="Ehrman, *Misquoting Jesus*, pp. 252–253." />
+**~75–80%: Spelling and nonsense variants.** The Greek equivalent of "honor" vs. "honour," or unintentional misspellings. Zero effect on meaning.
 
-Daniel Wallace, a conservative evangelical textual critic at Dallas Theological Seminary, agrees with Ehrman on the raw data while disagreeing on its theological implications. In their public debates, both have acknowledged:
+**~10–15%: Word-order variants.** Greek syntax is flexible. "Jesus loves John" and "John Jesus loves" are both valid Greek constructions communicating the same fact.
 
-- The variant count is large (200,000–400,000)
-- The vast majority are trivial
-- No fundamental Christian doctrine hangs on a disputed reading
-- The original text is recoverable to a very high degree
+**~5–10%: Synonymous variants.** A scribe substituted "Lord" for "Jesus," or vice versa. Meaningful to historians studying scribal habits, but rarely affect the substance of a passage.
 
-Their disagreement is about whether a text recovered to a very high degree is good enough for religious confidence — a theological and epistemological question, not a textual one.
+**~1–2%: Meaningful and viable variants.** These affect meaning *and* could plausibly represent the original reading. This is where serious textual study happens. Even within this category, the vast majority do not affect any doctrine that isn't taught elsewhere in the New Testament.
 
-## The Coherence-Based Genealogical Method
+Bart Ehrman — whose *Misquoting Jesus* is the most widely read skeptical treatment of this subject — writes in that same book:
 
-Modern textual criticism of the New Testament now employs computational methods. The **Coherence-Based Genealogical Method** (CBGM), developed at the INTF Münster and now underlying the *Editio Critica Maior* (the critical edition of the Greek New Testament), uses software to analyze the relationships between manuscripts and reconstruct the likely stemma (family tree) of the tradition. <Footnote id="wasserman-gurry" source="Wasserman & Gurry, *A New Approach to Textual Criticism*. SBL Press, 2017. This is the most accessible introduction to the CBGM for non-specialists." />
+> "It would be a mistake…to think that there are thousands of places in which the meaning of the text is in doubt… In fact, the most significant textual variants affect places that affect no important Christian doctrine." — *Misquoting Jesus*, pp. 252–253 <Footnote id="ehrman-misquoting" source="Ehrman, *Misquoting Jesus*, pp. 252–253." />
 
-The result of this work has been a more rigorous, computationally grounded text than the older 20th-century editions — and the changes from previous editions are, characteristically, minor.
+Daniel Wallace (conservative, Dallas Theological Seminary) agrees with Ehrman on the raw data. Their disagreement is whether a text recovered to very high confidence is sufficient for religious trust — a theological question, not a textual one.
 
-## The Hard Cases: Passages with Significant Textual Questions
+</ExpandSection>
 
-Honest engagement with textual criticism requires acknowledging the passages where the evidence is genuinely uncertain. The most significant are addressed in the *Variants Explained* article, but briefly:
+<ExpandSection label="How modern textual criticism works (the CBGM)">
 
-**Mark 16:9–20** — The "long ending" of Mark. The earliest and most reliable manuscripts (Sinaiticus, Vaticanus) end at 16:8. Most contemporary Bible translations footnote this clearly.
+Modern NT textual criticism now uses computational methods. The **Coherence-Based Genealogical Method** (CBGM), developed at the INTF Münster, analyzes manuscript relationships algorithmically to reconstruct the likely family tree of the tradition. <Footnote id="wasserman-gurry" source="Wasserman & Gurry, *A New Approach to Textual Criticism*. SBL Press, 2017." /> It now underlies the *Editio Critica Maior* — the critical edition of the Greek New Testament.
 
-**John 7:53–8:11** — The *pericope adulterae* (the woman caught in adultery). Absent from the earliest manuscripts; the style differs from the surrounding text. Most scholars believe it is a later insertion, though many also believe it preserves an authentic tradition about Jesus.
+The result is a more rigorous, computationally grounded text than older 20th-century editions. The changes from previous editions are, characteristically, minor.
 
-**1 John 5:7–8** — The *Comma Johanneum* ("For there are three that bear witness in heaven: the Father, the Word, and the Holy Spirit"). This Trinitarian addition appears only in late Latin manuscripts. It is not original and is not included in critical editions.
+Textual criticism is not the enemy of confidence in the NT text — it is the *source* of that confidence. By rigorously analyzing variants, scholars across the theological spectrum have reconstructed a text they believe represents what the original authors wrote to a very high degree.
 
-These are not hidden facts. They are discussed openly in standard critical editions, modern translations' footnotes, and seminary textbooks. The willingness to engage them honestly is part of what makes serious textual criticism credible.
+</ExpandSection>
 
-## Conclusion
-
-Textual criticism is not the enemy of confidence in the New Testament text — it is the *source* of that confidence. By rigorously analyzing variant readings, scholars from across the theological spectrum have reconstructed a text they believe represents what the original authors wrote to a very high degree of certainty.
-
-The large variant count, properly understood, is evidence of how thoroughly we have analyzed the manuscript tradition — not of how uncertain the text is.
